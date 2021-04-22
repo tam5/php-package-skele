@@ -4,5 +4,5 @@ namespace LiveIntent;
 
 class Example
 {
-    // Make a change here
+    // Make a change here, and here
 }

@@ -11,6 +11,7 @@
         "php": "^7.4|^8.0"
     },
     "require-dev": {
+        "liveintent/php-cs-rules": "^0.0.1",
         "nunomaduro/collision": "^5.4",
         "phpunit/phpunit": "^9.5",
         "vimeo/psalm": "^4.7"

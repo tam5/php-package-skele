@@ -9,7 +9,7 @@ $finder = Symfony\Component\Finder\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-$rules = LiveIntent\PHPCsRules::getRules();
+$rules = LiveIntent\PHPCsRules\PHPCsRules::getRules();
 
 return (new PhpCsFixer\Config())
     ->setRules($rules)

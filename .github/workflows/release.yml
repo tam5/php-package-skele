@@ -1,3 +1,6 @@
+# This one runs whenever a new tag is pushed,
+# and creates a release draft for us.
+# 
 name: create-release
 on:
   push:

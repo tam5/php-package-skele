@@ -1,3 +1,6 @@
+# This one runs a PHP static analyzer to find potential
+# issues with the code.
+# 
 name: Linting
 
 on:

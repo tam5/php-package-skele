@@ -41,6 +41,6 @@ jobs:
         with:
           tool_name: shfmt
 
-      - run: ./vendor/bin/psalm --output-format=text
+      - run: ./vendor/bin/psalm --output-format=text | reviewdog -name="aritest" -reporter=github-pr-check
       - name: suggester / psalm
         uses: reviewdog/action-suggester@v1

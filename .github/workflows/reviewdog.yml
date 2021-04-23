@@ -1,13 +1,6 @@
-# This one runs a PHP static analyzer to find potential
-# issues with the code.
-# 
-name: Linting
+name: reviewdog-suggester
 
-on:
-  push:
-    paths:
-      - '**.php'
-      - 'psalm.xml.dist'
+on: [pull_request] # Support only pull_request event.
 
 jobs:
   lint:
@@ -23,6 +16,9 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: none
 
+      - name: get pylint i think
+        uses: fylein/python-pylint-github-action@v1
+
       - name: Cache composer dependencies
         uses: actions/cache@v2
         with:
@@ -32,9 +28,19 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
 
-      - name: Run php-cs-fixer fix
-        run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache false
-
       - name: Run psalm
         run: ./vendor/bin/psalm --output-format=github
-# 
+
+      - uses: actions/setup-go@v2
+      - run: echo ::add-path::$(go env GOPATH)/bin
+      - run: GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+
+      - run: shfmt -i 2 -ci -w .
+      - name: suggester / shfmt
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: shfmt
+
+      - run: ./vendor/bin/psalm --output-format=text
+      - name: suggester / psalm
+        uses: reviewdog/action-suggester@v1

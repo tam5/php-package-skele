@@ -15,10 +15,6 @@ jobs:
           php-version: '8.0'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: none
-
-      - name: get pylint i think
-        uses: fylein/python-pylint-github-action@v1
-
       - name: Cache composer dependencies
         uses: actions/cache@v2
         with:
@@ -27,9 +23,6 @@ jobs:
 
       - name: Run composer install
         run: composer install -n --prefer-dist
-
-      - name: Run psalm
-        run: ./vendor/bin/psalm --output-format=github
 
       - uses: actions/setup-go@v2
       - run: echo ::add-path::$(go env GOPATH)/bin

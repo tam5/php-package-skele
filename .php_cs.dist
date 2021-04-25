@@ -1,16 +1,37 @@
 <?php
 
-$finder = Symfony\Component\Finder\Finder::create()
-    ->in([
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
+$finder = PhpCsFixer\Finder::create()
+        ->exclude('bootstrap')
+        ->in(__DIR__);
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@PhpCsFixer' => true,
+        'ordered_imports' => ['sort_algorithm' => 'length'],
+        'php_unit_test_class_requires_covers' => false,
+        'php_unit_internal_class' => false,
+        'yoda_style' => false,
+        'multiline_whitespace_before_semicolons' => [
+            'strategy'=> 'no_multi_line'
+        ],
+        'php_unit_method_casing' => ['case' => 'camel_case'],
+
+        // The following is for PSR12 support
+        // see https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/4502#issuecomment-570408101
+        '@PSR2' => true,
+        'blank_line_after_opening_tag' => true,
+        'braces' => ['allow_single_line_closure' => true],
+        'compact_nullable_typehint' => true,
+        'concat_space' => ['spacing' => 'one'],
+        'declare_equal_normalize' => ['space' => 'none'],
+        'function_typehint_space' => true,
+        'new_with_braces' => true,
+        'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
+        'no_empty_statement' => true,
+        'no_leading_import_slash' => true,
+        'no_leading_namespace_whitespace' => true,
+        'no_whitespace_in_blank_line' => true,
+        'return_type_declaration' => ['space_before' => 'none'],
+        'single_trait_insert_per_statement' => true,
     ])
-    ->name('*.php')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
-
-$rules = LiveIntent\PHPCsRules\PHPCsRules::getRules();
-
-return (new PhpCsFixer\Config())
-    ->setRules($rules)
     ->setFinder($finder);

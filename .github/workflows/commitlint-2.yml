@@ -1,22 +1,22 @@
-# This one lints all the commit messages to make sure
-# they follow our convention. The convention helps
-# us to generate release notes.
-#
-# This check will only prevent merging to the `main`
-# and `release/*` branches, so our history remains
-# clean, and you don't have to worry too much
-# about yours.
-# 
+# # This one lints all the commit messages to make sure
+# # they follow our convention. The convention helps
+# # us to generate release notes.
+# #
+# # This check will only prevent merging to the `main`
+# # and `release/*` branches, so our history remains
+# # clean, and you don't have to worry too much
+# # about yours.
+# #
 
-name: Lint more Commit Messages
-on: ['push']
+# name: Lint more Commit Messages
+# on: ['push']
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    name: conventional
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v3
+# jobs:
+#   lint:
+#     runs-on: ubuntu-latest
+#     name: conventional
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+#       - uses: wagoid/commitlint-github-action@v3

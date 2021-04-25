@@ -4,9 +4,9 @@ namespace LiveIntent;
 
 class Example
 {
-    public function badLinter() {
+    public function badLinter(  ) {
           echo    'another bad linted thing' ;
-          echo 'uhm';
+          echo "uhm";
     }
     // Make a change here, and here
     // another thing

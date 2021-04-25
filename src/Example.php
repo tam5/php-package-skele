@@ -5,7 +5,7 @@ namespace LiveIntent;
 class Example
 {
     public function badLinter() {
-         $this->fail;
+          echo 'uhm';
     }
     // Make a change here, and here
     // another thing

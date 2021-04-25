@@ -1,14 +1,14 @@
-name: reviewdog
+name: reviewdog-suggester
 
 on: [pull_request] # Support only pull_request event.
 
 jobs:
-  reviewdog:
-    name: reviewdog
+  aritest:
+    name: aritest
     runs-on: ubuntu-latest
     steps:
-      - uses: reviewdog/action-setup@v1
       - uses: actions/checkout@v2
+      - uses: reviewdog/action-setup@v1
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

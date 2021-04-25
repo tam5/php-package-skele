@@ -26,7 +26,7 @@ jobs:
         run: composer install -n --prefer-dist
 
       - name: suggester / lint
-      - uses: reviewdog/action-setup@v1
+        uses: reviewdog/action-setup@v1
         run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache false --diff --diff-format udiff | reviewdog -name="aritest3" -reporter=github-pr-check
 
       - name: suggester / psalm

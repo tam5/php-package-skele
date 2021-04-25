@@ -1,13 +1,16 @@
-name: reviewdog-suggester
+name: reviewdog
 
 on: [pull_request] # Support only pull_request event.
 
 jobs:
-  lint:
-    name: lint
+  reviewdog:
+    name: reviewdog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+    steps:
+      - uses: reviewdog/action-setup@v1
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -15,6 +18,7 @@ jobs:
           php-version: '8.0'
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: none
+
       - name: Cache composer dependencies
         uses: actions/cache@v2
         with:
@@ -23,11 +27,6 @@ jobs:
 
       - name: Run composer install
         run: composer install -n --prefer-dist
-
-      - name: Setup reviewdog
-        run: |
-          mkdir -p $HOME/bin && curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b $HOME/bin
-          echo ::add-path::$HOME/bin
 
       - run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache false --diff --diff-format udiff | reviewdog -name="aritest3" -reporter=github-pr-check
       - name: suggester / psalm

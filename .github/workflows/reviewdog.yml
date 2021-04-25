@@ -24,15 +24,14 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
 
-      - uses: actions/setup-go@v2
-      - run: echo ::add-path::$(go env GOPATH)/bin
-      - run: GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+      - name: Setup reviewdog
+        run: |
+          mkdir -p $HOME/bin && curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s -- -b $HOME/bin
+          echo ::add-path::$HOME/bin
 
-      - run: shfmt -i 2 -ci -w .
-      - name: suggester / shfmt
+      - run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache false --diff --diff-format udiff | reviewdog -name="aritest3" -reporter=github-pr-check
+      - name: suggester / psalm
         uses: reviewdog/action-suggester@v1
-        with:
-          tool_name: shfmt
 
       - run: ./vendor/bin/psalm --output-format=text | reviewdog -name="aritest" -reporter=github-pr-check
       - name: suggester / psalm

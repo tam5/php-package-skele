@@ -7,10 +7,8 @@ jobs:
     name: reviewdog
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-    steps:
       - uses: reviewdog/action-setup@v1
+      - uses: actions/checkout@v2
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -28,10 +26,8 @@ jobs:
       - name: Run composer install
         run: composer install -n --prefer-dist
 
-      - run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache false --diff --diff-format udiff | reviewdog -name="aritest3" -reporter=github-pr-check
-      - name: suggester / psalm
-        uses: reviewdog/action-suggester@v1
+      - name: suggester / lint
+        run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache false --diff --diff-format udiff | reviewdog -name="aritest3" -reporter=github-pr-check
 
-      - run: ./vendor/bin/psalm --output-format=text | reviewdog -name="aritest" -reporter=github-pr-check
       - name: suggester / psalm
-        uses: reviewdog/action-suggester@v1
+        run: ./vendor/bin/psalm --output-format=text | reviewdog -name="aritest" -reporter=github-pr-check

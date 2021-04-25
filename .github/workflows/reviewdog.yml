@@ -16,9 +16,6 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
           coverage: none
 
-      - name: get pylint i think
-        uses: fylein/python-pylint-github-action@v1
-
       - name: Cache composer dependencies
         uses: actions/cache@v2
         with:
@@ -30,17 +27,3 @@ jobs:
 
       - name: Run psalm
         run: ./vendor/bin/psalm --output-format=github
-
-      - uses: actions/setup-go@v2
-      - run: echo ::add-path::$(go env GOPATH)/bin
-      - run: GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
-
-      - run: shfmt -i 2 -ci -w .
-      - name: suggester / shfmt
-        uses: reviewdog/action-suggester@v1
-        with:
-          tool_name: shfmt
-
-      - run: ./vendor/bin/psalm --output-format=text | reviewdog -name="aritest" -reporter=github-pr-check
-      - name: suggester / psalm
-        uses: reviewdog/action-suggester@v1

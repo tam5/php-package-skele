@@ -1,8 +1,7 @@
 # Checks for code errors
 name: Psalm
 
-on:
-  pull_request:
+on: ['pull_request']
 
 jobs:
   psalm:

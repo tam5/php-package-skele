@@ -1,37 +1,37 @@
-name: linter-testing
+# name: linter-testing
 
-on: [pull_request] # Support only pull_request event.
+# on: [pull_request] # Support only pull_request event.
 
-jobs:
-  linting:
-    name: linting
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: reviewdog/action-setup@v1
+# jobs:
+#   linting:
+#     name: linting
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: reviewdog/action-setup@v1
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
-          coverage: none
+#       - name: Setup PHP
+#         uses: shivammathur/setup-php@v2
+#         with:
+#           php-version: '8.0'
+#           extensions: dom, curl, libxml, mbstring, zip, pcntl, bcmath, intl, iconv
+#           coverage: none
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
+#       - name: Cache composer dependencies
+#         uses: actions/cache@v2
+#         with:
+#           path: vendor
+#           key: composer-${{ hashFiles('composer.lock') }}
 
-      - name: Run composer install
-        run: composer install -n --prefer-dist
+#       - name: Run composer install
+#         run: composer install -n --prefer-dist
 
-      - name: suggester / lint
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache=false --format=checkstyle | reviewdog -f=checkstyle -reporter=github-pr-check -filter-mode=nofilter
+#       - name: suggester / lint
+#         env:
+#           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: ./vendor/bin/php-cs-fixer fix --dry-run --using-cache=false --format=checkstyle | reviewdog -f=checkstyle -reporter=github-pr-check -filter-mode=nofilter
 
-      - name: suggester / pslam
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./vendor/bin/psalm --output-format=text | reviewdog -f=psalm -reporter=github-pr-check -tee
+#       - name: suggester / pslam
+#         env:
+#           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         run: ./vendor/bin/psalm --output-format=text | reviewdog -f=psalm -reporter=github-pr-check -tee

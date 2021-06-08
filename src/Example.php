@@ -1,6 +1,6 @@
 <?php
 
-// This is a thing
+// This is a thing, and also that
 
 namespace LiveIntent;
 

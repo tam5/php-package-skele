@@ -16,10 +16,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Generate changelog
+        id: changelog
         uses: metcalfc/changelog-generator@v1.0.0
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
+        id: create_release
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

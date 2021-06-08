@@ -1,5 +1,7 @@
 <?php
 
+// This is a thing
+
 namespace LiveIntent;
 
 class Example
